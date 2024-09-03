@@ -1,0 +1,5 @@
+game.UserInputService.InputEnded:Connect(function(key)
+if key.KeyCode == Enum.KeyCode.Q then
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 350
+end
+end)
