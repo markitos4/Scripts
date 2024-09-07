@@ -1,0 +1,513 @@
+local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/SiriusSoftwareLtd/Rayfield/main/source.lua'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "Flee that retarded facility",
+   LoadingTitle = "Join the discord!",
+   LoadingSubtitle = "Made by Glosary.",
+   ConfigurationSaving = {
+      Enabled = false,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "Big Hub"
+   },
+   KeySystem = false, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Sirius Hub",
+      Subtitle = "Key System",
+      Note = "Join the discord (https://discord.gg/8qTZbjG3)",
+      FileName = "GlosarysKey",
+      SaveKey = true,
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = "Hello"
+   }
+})
+
+local Home = Window:CreateTab("Home", 13209388803) -- Title, Imagee
+local Esp = Window:CreateTab("Esp", 13209481800) -- Title, Imagee
+local Beast = Window:CreateTab("Beast", 13209523447) -- Title, Imagee
+local NBeast = Window:CreateTab("Non-Beast", 13209387638)
+local Player = Window:CreateTab("Player", 13209386618) -- Title, Imagee
+
+local Section = Esp:CreateSection("ESP")
+local button = Esp:CreateToggle({
+   Name = "Player Esp",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(state)
+if state == true then
+	for i,v in pairs(game.Players:GetChildren()) do
+		if v:IsA("Player") and v.Name ~= game.Players.LocalPlayer.Name then
+			pcall(function()
+				local transparency = 0.5
+				local Folder = Instance.new("Folder",v.Character)
+				Folder.Name = v.Name .. "'s ESP"
+				--Head
+				local Head = Instance.new("BoxHandleAdornment",Folder)
+				Head.AlwaysOnTop = true
+				Head.Adornee = v.Character.Head
+				Head.ZIndex = 1
+				Head.Name = "Head"
+				Head.Transparency = transparency
+				Head.Size = v.Character.Head.Size
+				--Torso
+				local Torso = Instance.new("BoxHandleAdornment",Folder)
+				Torso.AlwaysOnTop = true
+				Torso.Adornee = v.Character.Torso
+				Torso.ZIndex = 1
+				Torso.Name = "Torso"
+				Torso.Transparency = transparency
+				Torso.Size = v.Character.Torso.Size
+				--Left Arm
+				local LeftArm = Instance.new("BoxHandleAdornment",Folder)
+				LeftArm.AlwaysOnTop = true
+				LeftArm.Adornee = v.Character["Left Arm"]
+				LeftArm.ZIndex = 1
+				LeftArm.Name = "LeftArm"
+				LeftArm.Transparency = transparency
+				LeftArm.Size = v.Character["Left Arm"].Size
+				--Right Arm
+				local RightArm = Instance.new("BoxHandleAdornment",Folder)
+				RightArm.AlwaysOnTop = true
+				RightArm.Adornee = v.Character["Right Arm"]
+				RightArm.ZIndex = 1
+				RightArm.Name = "RightArm"
+				RightArm.Transparency = transparency
+				RightArm.Size = v.Character["Right Arm"].Size
+				--Right Leg
+				local RightLeg = Instance.new("BoxHandleAdornment",Folder)
+				RightLeg.AlwaysOnTop = true
+				RightLeg.Adornee = v.Character["Right Leg"]
+				RightLeg.ZIndex = 1
+				RightLeg.Name = "RightLeg"
+				RightLeg.Transparency = transparency
+				RightLeg.Size = v.Character["Right Leg"].Size
+				--Left Leg
+				local LeftLeg = Instance.new("BoxHandleAdornment",Folder)
+				LeftLeg.AlwaysOnTop = true
+				LeftLeg.Name = "LeftLeg"
+				LeftLeg.Adornee = v.Character["Left Leg"]
+				LeftLeg.ZIndex = 1
+				LeftLeg.Transparency = transparency
+				LeftLeg.Size = v.Character["Left Leg"].Size
+				--Colors if beast or not
+				getgenv().LoopBeastColor = game.RunService.Stepped:Connect(function()
+				if v.TempPlayerStatsModule.IsBeast.Value == true then
+					Head.Color3 = Color3.fromRGB(205, 98, 152)
+					Torso.Color3 = Color3.fromRGB(205, 98, 152)
+					LeftArm.Color3 = Color3.fromRGB(205, 98, 152)
+					RightArm.Color3 = Color3.fromRGB(205, 98, 152)
+					RightLeg.Color3 = Color3.fromRGB(205, 98, 152)
+					LeftLeg.Color3 = Color3.fromRGB(205, 98, 152)
+				elseif v.TempPlayerStatsModule.IsBeast.Value == false then
+					Head.Color3 = Color3.new(225,1,1)
+					Torso.Color3 = Color3.new(1,1,1)
+					LeftArm.Color3 = Color3.new(1,1,1)
+					RightArm.Color3 = Color3.new(1,1,1)
+					RightLeg.Color3 = Color3.new(1,1,1)
+					LeftLeg.Color3 = Color3.new(1,1,1)
+				end
+				end)
+        --[[
+        --BillboardGui
+        local BillboardGui = Instance.new("BillboardGui",Folder)
+        BillboardGui.AlwaysOnTop = true
+        BillboardGui.Enabled = true
+        BillboardGui.Adornee = v.Character.Head
+        BillboardGui.Size = UDim2.new(0,100,0,100)
+        --NameTag
+        local NameTag = Instance.new("TextLabel",BillboardGui)
+        NameTag.BackgroundTransparency = 1
+        NameTag.Size = UDim2.new(0,100,0,10)
+        if v.TempPlayerStatsModule.IsBeast.Value == true then
+        NameTag.TextColor3 = Color3.new(1,0,0)
+        elseif v.TempPlayerStatsModule.IsBeast.Value == false then
+        NameTag.TextColor3 = Color3.new(1,1,1)
+        end
+        NameTag.ZIndex = 10
+        NameTag.Visible = true
+        NameTag.TextSize = 20
+        NameTag.Text = "Name: " .. v.Name
+        ]]
+			end)
+		end
+	end
+else
+getgenv().LoopBeastColor:Disconnect()
+for i,v in pairs(game.Players:GetChildren()) do
+    if v:IsA("Player") then
+   for i,e in pairs(v.Character:GetChildren()) do
+   if e:IsA("Folder") then
+       pcall(function()
+       e:Destroy()
+       end)
+end
+end
+end
+end
+end
+   end,
+})
+
+local Workspace = game:GetService("Workspace")
+local Players = game:GetService("Players")
+local Plr = Players.LocalPlayer
+local Clipon = false
+
+local NoclipSection = Player:CreateSection("Noclip")
+local NoclipToggle = Player:CreateToggle({
+   Name = "Toggle Noclip",
+   CurrentValue = false,
+   Flag = "ToggleNoclip",
+   Callback = function(state)
+      if state == true then
+         Clipon = true
+         game:GetService("RunService").Stepped:Connect(function()
+            if Clipon then
+               for _, v in pairs(Workspace:GetChildren()) do
+                  if v.Name == Plr.Name then
+                     for _, part in pairs(v:GetChildren()) do
+                        if part:IsA("BasePart") then
+                           part.CanCollide = false
+                        end
+                     end
+                  end
+               end
+            end
+         end)
+      else
+         Clipon = false
+         -- Optionally: Re-enable collisions
+      end
+   end
+})
+
+local Toggle = Esp:CreateToggle({
+   Name = "Door Esp",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(state)
+if state == true then
+getgenv().DoorESP = false
+	spawn(function()
+		--single doors
+		for i,v in pairs(workspace:GetDescendants()) do
+			if v.Name == "SingleDoor" then
+				pcall(function()
+					local ESP = Instance.new("Highlight")
+					ESP.Parent = v.Door
+				end)
+
+			end
+		end
+		wait(1)
+
+		for i,v in pairs(workspace:GetDescendants()) do
+			if v.Name == "SingleDoor" then
+				spawn(function()
+					while true do
+						pcall(function()
+							if v.DoorTrigger.ActionSign.Value == 11 then
+								v.Door.Highlight.FillColor = Color3.new(0,1,0)
+							elseif v.DoorTrigger.ActionSign.Value == 10 then
+								v.Door.Highlight.FillColor = Color3.new(1,0,0)
+							end
+						end)
+						if getgenv().DoorESP == true then
+						    break;
+						end
+						wait(0.1)
+					end
+				end)
+				
+				
+			end
+		end
+		
+	end)
+	--double doors
+	spawn(function()
+		for i,v in pairs(workspace:GetDescendants()) do
+			if v.Name == "DoubleDoor" then
+				pcall(function()
+					local ESP = Instance.new("Highlight")
+					ESP.Parent = v
+				end)
+
+			end
+		end
+		wait(1)
+
+		for i,v in pairs(workspace:GetDescendants()) do
+			if v.Name == "DoubleDoor" then
+				spawn(function()
+					while true do
+						pcall(function()
+							if v.DoorTrigger.ActionSign.Value == 11 then
+								v.Highlight.FillColor = Color3.new(0,1,0)
+							elseif v.DoorTrigger.ActionSign.Value == 10 then
+								v.Highlight.FillColor = Color3.new(1,0,0)
+							end
+						end)
+                        if getgenv().DoorESP == true then
+                             print("Stopped itLop!2")
+                             break;
+                        end
+                        wait(0.1)
+					end
+				end)
+			end
+		end
+	end)
+else
+getgenv().DoorESP = true
+	--signle door
+	for i,v in pairs(workspace:GetDescendants()) do
+		if v.Name == "SingleDoor" then
+			pcall(function()
+				v.Door.Highlight:Destroy()
+			end)
+
+		end
+	end
+
+	--double doors
+	for i,v in pairs(workspace:GetDescendants()) do
+		if v.Name == "DoubleDoor" then
+			pcall(function()
+				v.Highlight:Destroy()
+			end)
+
+		end
+	end
+end   end,
+})
+
+local Toggle = Esp:CreateToggle({
+   Name = "Computer Esp",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(state)
+   if state == true then
+getgenv().StopComputerESP = false
+for i,v in pairs(workspace:GetDescendants()) do 
+    if v.Name == "ComputerTable" then
+        pcall(function()
+        local ESP = Instance.new("Highlight",v)
+        end)
+    end
+end
+
+spawn(function()
+while true do
+for i,v in pairs(workspace:GetDescendants()) do
+    if v.Name == "ComputerTable" then
+        if v.Screen.BrickColor == BrickColor.new("Bright blue") then
+            pcall(function()
+          v.Highlight.FillColor = Color3.new(0,0,1)
+            end)
+        elseif v.Screen.BrickColor == BrickColor.new("Dark green") then
+            pcall(function()
+          v.Highlight.FillColor = Color3.new(0,1,0)
+            end)
+        end
+        if getgenv().StopComputerESP == true then
+          print("Stopped itLop!PC")
+          break;
+        end
+    end
+end
+wait(1)
+end
+end)
+else
+getgenv().StopComputerESP = true
+for i,v in pairs(workspace:GetDescendants()) do 
+    if v.Name == "ComputerTable" then
+        pcall(function()
+        v.Highlight:Destroy()
+        end)
+    end
+end
+end
+   end,
+})
+
+local Toggle = Esp:CreateToggle({
+   Name = "Freeze Pod Esp",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(state)
+   if state == true then
+for i,v in pairs(workspace:GetDescendants()) do 
+    if v.Name == "FreezePod" then
+        pcall(function()
+        local ESP = Instance.new("Highlight",v)
+        end)
+    end
+end
+else
+for i,v in pairs(workspace:GetDescendants()) do 
+    if v.Name == "FreezePod" then
+        pcall(function()
+        v.Highlight:Destroy()
+        end)
+    end
+end
+end
+   end,
+})
+
+local Section = Beast:CreateSection("Beast")
+
+local Button = Beast:CreateButton({
+   Name = "Infinite Sprint",
+   Callback = function()
+if game.Players.LocalPlayer.TempPlayerStatsModule.IsBeast.Value == true then
+game.UserInputService.InputBegan:Connect(function(key)
+if key.KeyCode == Enum.KeyCode.Q then
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 45
+end
+end)
+
+game.UserInputService.InputEnded:Connect(function(key)
+if key.KeyCode == Enum.KeyCode.Q then
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+end
+end)
+
+pcall(function()
+game.Players.LocalPlayer.Character.PowersLocalScript:Destroy()    
+end)
+end
+end,
+})
+
+local Button = Beast:CreateButton({
+   Name = "No Slow",
+   Callback = function()
+if game.Players.LocalPlayer.TempPlayerStatsModule.IsBeast.Value == true then
+pcall(function()
+game.Players.LocalPlayer.Character.PowersLocalScript:Destroy()
+end)
+end
+   end,
+})
+
+local Button = Beast:CreateButton({
+   Name = "Enable Crawl",
+   Callback = function()
+if game.Players.LocalPlayer.TempPlayerStatsModule.IsBeast.Value == true then
+game:GetService("Players").LocalPlayer.TempPlayerStatsModule.DisableCrawl.Value = false
+end
+end
+})
+
+local Button = Beast:CreateButton({
+   Name = "Remove Sound And Glow",
+   Callback = function()
+if game.Players.LocalPlayer.TempPlayerStatsModule.IsBeast.Value == true then
+for i,v in pairs(game.Players.LocalPlayer.Character.Hammer.Handle:GetChildren()) do
+    if v:IsA("Sound") then
+        pcall(function()
+        v:Destroy()
+        end)
+    end
+end
+
+pcall(function()
+game.Players.LocalPlayer.Character.Gemstone.Handle.PointLight:Destroy()
+end)
+end
+end
+})
+
+local Button = Beast:CreateButton({
+   Name = "Fix Camera",
+   Callback = function()
+local player = game.Players.LocalPlayer
+
+	workspace.CurrentCamera.CameraSubject = player.Character:FindFirstChildWhichIsA('Humanoid')
+	workspace.CurrentCamera.CameraType = "Custom"
+	player.CameraMinZoomDistance = 0.5
+	player.CameraMaxZoomDistance = math.huge
+	player.CameraMode = "Classic"
+	player.Character.Head.Anchored = false
+   end,
+})
+
+local Section = NBeast:CreateSection("Non-Beast",true)
+
+local Button = NBeast:CreateButton({
+   Name = "Q to Sprint",
+   Callback = function()
+game.UserInputService.InputBegan:Connect(function(key)
+if key.KeyCode == Enum.KeyCode.Q then
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 30
+end
+end)
+
+game.UserInputService.InputEnded:Connect(function(key)
+if key.KeyCode == Enum.KeyCode.Q then
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+end
+end)
+
+pcall(function()
+game.Players.LocalPlayer.Character.PowersLocalScript:Destroy()    
+end)
+end,
+})
+
+local Button = NBeast:CreateButton({
+   Name = "No fail on hack",
+   Callback = function()
+spawn(function()
+while wait() do
+game.ReplicatedStorage.RemoteEvent:FireServer("SetPlayerMinigameResult",true)
+end
+end)
+end,
+})
+
+local Section = Player:CreateSection("Player")
+
+local Button = Player:CreateButton({
+   Name = "Respawn",
+   Callback = function()
+local plr = game.Players.LocalPlayer
+plr.Character:Destroy()
+end,
+})
+
+local Button = Player:CreateButton({
+   Name = "Invisible (Toggle F)",
+   Callback = function()
+   loadstring(game:HttpGet('https://raw.githubusercontent.com/markitos4/Invisible/main/Flee'))()
+end,
+})
+
+local Button = Player:CreateButton({
+   Name = "Rejoin",
+   Callback = function()
+  -- rejoin		
+local TeleportService = game:GetService("TeleportService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+ 
+local Rejoin = coroutine.create(function()
+    local Success, ErrorMessage = pcall(function()
+        TeleportService:Teleport(game.PlaceId, LocalPlayer)
+    end)
+ 
+    if ErrorMessage and not Success then
+        warn(ErrorMessage)
+    end
+end)
+ 
+coroutine.resume(Rejoin)
+   end,
+})
+
+local Label = Home:CreateLabel("This was made by Glosary")
+local Label = Home:CreateLabel("Discord: glosaryyy#0 if any problems xo")
+local Label = Home:CreateLabel("Oh ma pussy hot")
+local Label = Home:CreateLabel("MA PUSSY IS BURNING")
