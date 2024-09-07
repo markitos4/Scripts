@@ -1,0 +1,479 @@
+local UI = Instance.new("ScreenGui")
+local MF = Instance.new("ImageLabel")
+local Home = Instance.new("ImageLabel")
+local HTitle = Instance.new("TextLabel")
+local Title = Instance.new("TextLabel")
+local Title_2 = Instance.new("TextLabel")
+local GT = Instance.new("TextLabel")
+local HomeB = Instance.new("TextButton")
+local MainB = Instance.new("TextButton")
+local CreditB = Instance.new("TextButton")
+local Credit = Instance.new("ImageLabel")
+local CTitle = Instance.new("TextLabel")
+local UIDev = Instance.new("TextLabel")
+local LUADev = Instance.new("TextLabel")
+local server = Instance.new("TextLabel")
+local name1 = Instance.new("TextLabel")
+local name = Instance.new("TextLabel")
+local discordlink = Instance.new("TextLabel")
+local Rdate = Instance.new("TextLabel")
+local date = Instance.new("TextLabel")
+local Main = Instance.new("ImageLabel")
+local MTitle = Instance.new("TextLabel")
+local RTS = Instance.new("TextButton")
+local TextButton_Roundify_4px = Instance.new("ImageLabel")
+local RHB = Instance.new("TextButton")
+local TextButton_Roundify_4px_2 = Instance.new("ImageLabel")
+local IY = Instance.new("TextButton")
+local TextButton_Roundify_4px_3 = Instance.new("ImageLabel")
+
+
+UI.Name = "UI"
+UI.Parent = game.CoreGui
+
+MF.Name = "MF"
+MF.Parent = UI
+MF.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+MF.BackgroundTransparency = 1.000
+MF.Position = UDim2.new(0.0333535224, 0, 0.228070155, 0)
+MF.Size = UDim2.new(0, 519, 0, 319)
+MF.Image = "rbxassetid://3570695787"
+MF.ImageColor3 = Color3.fromRGB(18, 18, 18)
+MF.ScaleType = Enum.ScaleType.Slice
+MF.SliceCenter = Rect.new(100, 100, 100, 100)
+MF.SliceScale = 0.040
+MF.Active = true
+MF.Draggable = true
+Home.Name = "Home"
+Home.Parent = MF
+Home.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Home.BackgroundTransparency = 1.000
+Home.Position = UDim2.new(0.303790778, 0, 0, 0)
+Home.Size = UDim2.new(0, 361, 0, 319)
+Home.Image = "rbxassetid://3570695787"
+Home.ImageColor3 = Color3.fromRGB(15, 15, 15)
+Home.ScaleType = Enum.ScaleType.Slice
+Home.SliceCenter = Rect.new(100, 100, 100, 100)
+Home.SliceScale = 0.040
+HTitle.Name = "HTitle"
+HTitle.Parent = Home
+HTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+HTitle.BackgroundTransparency = 1.000
+HTitle.Position = UDim2.new(-0.00184880733, 0, 0, 0)
+HTitle.Size = UDim2.new(0, 361, 0, 41)
+HTitle.Font = Enum.Font.Highway
+HTitle.Text = "Home"
+HTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+HTitle.TextSize = 25.000
+Title.Name = "Title"
+Title.Parent = Home
+Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Title.BackgroundTransparency = 1.000
+Title.Position = UDim2.new(0.000921275816, 0, 0.128526643, 0)
+Title.Size = UDim2.new(0, 361, 0, 278)
+Title.Font = Enum.Font.Highway
+Title.Text = "Welcome to Eclipse the #1 pass the bomb script! Press any tab on the left to begin!"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextSize = 20.000
+Title.TextWrapped = true
+Title.TextYAlignment = Enum.TextYAlignment.Top
+Title_2.Name = "Title"
+Title_2.Parent = MF
+Title_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Title_2.BackgroundTransparency = 1.000
+Title_2.Position = UDim2.new(-0.0346820801, 0, 0, 0)
+Title_2.Size = UDim2.new(0, 128, 0, 41)
+Title_2.Font = Enum.Font.Highway
+Title_2.Text = "Eclipse"
+Title_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title_2.TextSize = 25.000
+GT.Name = "GT"
+GT.Parent = MF
+GT.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GT.BackgroundTransparency = 1.000
+GT.Position = UDim2.new(-0.0462427735, 0, 0.068965517, 0)
+GT.Size = UDim2.new(0, 191, 0, 41)
+GT.Font = Enum.Font.Highway
+GT.Text = "Pass-The-Bomb"
+GT.TextColor3 = Color3.fromRGB(152, 152, 152)
+GT.TextSize = 20.000
+HomeB.Name = "HomeB"
+HomeB.Parent = MF
+HomeB.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+HomeB.BorderSizePixel = 0
+HomeB.Position = UDim2.new(0, 0, 0.197492152, 0)
+HomeB.Size = UDim2.new(0, 157, 0, 35)
+HomeB.Font = Enum.Font.Highway
+HomeB.Text = "Home"
+HomeB.TextColor3 = Color3.fromRGB(255, 255, 255)
+HomeB.TextSize = 18.000
+MainB.Name = "MainB"
+MainB.Parent = MF
+MainB.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+MainB.BorderSizePixel = 0
+MainB.Position = UDim2.new(0, 0, 0.307210028, 0)
+MainB.Size = UDim2.new(0, 157, 0, 35)
+MainB.Font = Enum.Font.Highway
+MainB.Text = "Main"
+MainB.TextColor3 = Color3.fromRGB(255, 255, 255)
+MainB.TextSize = 18.000
+CreditB.Name = "CreditB"
+CreditB.Parent = MF
+CreditB.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+CreditB.BorderSizePixel = 0
+CreditB.Position = UDim2.new(0, 0, 0.416927904, 0)
+CreditB.Size = UDim2.new(0, 157, 0, 35)
+CreditB.Font = Enum.Font.Highway
+CreditB.Text = "Credit"
+CreditB.TextColor3 = Color3.fromRGB(255, 255, 255)
+CreditB.TextSize = 18.000
+Credit.Name = "Credit"
+Credit.Parent = MF
+Credit.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Credit.BackgroundTransparency = 1.000
+Credit.Position = UDim2.new(0.303790778, 0, 0, 0)
+Credit.Size = UDim2.new(0, 361, 0, 319)
+Credit.Visible = false
+Credit.Image = "rbxassetid://3570695787"
+Credit.ImageColor3 = Color3.fromRGB(15, 15, 15)
+Credit.ScaleType = Enum.ScaleType.Slice
+Credit.SliceCenter = Rect.new(100, 100, 100, 100)
+Credit.SliceScale = 0.040
+CTitle.Name = "CTitle"
+CTitle.Parent = Credit
+CTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+CTitle.BackgroundTransparency = 1.000
+CTitle.Position = UDim2.new(-0.00184880733, 0, 0, 0)
+CTitle.Size = UDim2.new(0, 361, 0, 41)
+CTitle.Font = Enum.Font.Highway
+CTitle.Text = "Credit"
+CTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+CTitle.TextSize = 25.000
+UIDev.Name = "UIDev"
+UIDev.Parent = Credit
+UIDev.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+UIDev.BackgroundTransparency = 1.000
+UIDev.Position = UDim2.new(-0.00184880733, 0, 0.128526643, 0)
+UIDev.Size = UDim2.new(0, 138, 0, 41)
+UIDev.Font = Enum.Font.Highway
+UIDev.Text = "UI developer:"
+UIDev.TextColor3 = Color3.fromRGB(255, 255, 255)
+UIDev.TextSize = 25.000
+LUADev.Name = "LUADev"
+LUADev.Parent = Credit
+LUADev.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+LUADev.BackgroundTransparency = 1.000
+LUADev.Position = UDim2.new(0.0258520246, 0, 0.197492167, 0)
+LUADev.Size = UDim2.new(0, 154, 0, 41)
+LUADev.Font = Enum.Font.Highway
+LUADev.Text = "Script developer:"
+LUADev.TextColor3 = Color3.fromRGB(255, 255, 255)
+LUADev.TextSize = 25.000
+server.Name = "server"
+server.Parent = Credit
+server.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+server.BackgroundTransparency = 1.000
+server.Position = UDim2.new(0.0258520246, 0, 0.257053286, 0)
+server.Size = UDim2.new(0, 61, 0, 51)
+server.Font = Enum.Font.Highway
+server.Text = "Server:"
+server.TextColor3 = Color3.fromRGB(255, 255, 255)
+server.TextSize = 25.000
+name1.Name = "name1"
+name1.Parent = Credit
+name1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+name1.BackgroundTransparency = 1.000
+name1.Position = UDim2.new(0.399813235, 0, 0.128526643, 0)
+name1.Size = UDim2.new(0, 83, 0, 41)
+name1.Font = Enum.Font.Highway
+name1.Text = "hlb/#4005"
+name1.TextColor3 = Color3.fromRGB(136, 0, 255)
+name1.TextSize = 25.000
+name.Name = "name"
+name.Parent = Credit
+name.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+name.BackgroundTransparency = 1.000
+name.Position = UDim2.new(0.502306283, 0, 0.197492152, 0)
+name.Size = UDim2.new(0, 83, 0, 41)
+name.Font = Enum.Font.Highway
+name.Text = "hlb/#4005"
+name.TextColor3 = Color3.fromRGB(136, 0, 255)
+name.TextSize = 25.000
+discordlink.Name = "discord-link"
+discordlink.Parent = Credit
+discordlink.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+discordlink.BackgroundTransparency = 1.000
+discordlink.Position = UDim2.new(0.244688511, 0, 0.272727281, 0)
+discordlink.Size = UDim2.new(0, 212, 0, 41)
+discordlink.Font = Enum.Font.Highway
+discordlink.Text = "discord.gg/c426DP8gT5"
+discordlink.TextColor3 = Color3.fromRGB(136, 0, 255)
+discordlink.TextSize = 25.000
+Rdate.Name = "Rdate"
+Rdate.Parent = Credit
+Rdate.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Rdate.BackgroundTransparency = 1.000
+Rdate.Position = UDim2.new(0.0258520246, 0, 0.307210028, 0)
+Rdate.Size = UDim2.new(0, 122, 0, 68)
+Rdate.Font = Enum.Font.Highway
+Rdate.Text = "Release date:"
+Rdate.TextColor3 = Color3.fromRGB(255, 255, 255)
+Rdate.TextSize = 25.000
+date.Name = "date"
+date.Parent = Credit
+date.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+date.BackgroundTransparency = 1.000
+date.Position = UDim2.new(0.244688511, 0, 0.347962379, 0)
+date.Size = UDim2.new(0, 191, 0, 43)
+date.Font = Enum.Font.Highway
+date.Text = "8/6/2021"
+date.TextColor3 = Color3.fromRGB(136, 0, 255)
+date.TextSize = 25.000
+Main.Name = "Main"
+Main.Parent = MF
+Main.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Main.BackgroundTransparency = 1.000
+Main.Position = UDim2.new(0.303790778, 0, 0, 0)
+Main.Size = UDim2.new(0, 361, 0, 319)
+Main.Visible = false
+Main.Image = "rbxassetid://3570695787"
+Main.ImageColor3 = Color3.fromRGB(15, 15, 15)
+Main.ScaleType = Enum.ScaleType.Slice
+Main.SliceCenter = Rect.new(100, 100, 100, 100)
+Main.SliceScale = 0.040
+MTitle.Name = "MTitle"
+MTitle.Parent = Main
+MTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+MTitle.BackgroundTransparency = 1.000
+MTitle.Position = UDim2.new(-0.00184880733, 0, 0, 0)
+MTitle.Size = UDim2.new(0, 361, 0, 41)
+MTitle.Font = Enum.Font.Highway
+MTitle.Text = "Main"
+MTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+MTitle.TextSize = 25.000
+RTS.Name = "RTS"
+RTS.Parent = Main
+RTS.BackgroundColor3 = Color3.fromRGB(136, 0, 255)
+RTS.BackgroundTransparency = 1.000
+RTS.BorderColor3 = Color3.fromRGB(27, 42, 53)
+RTS.BorderSizePixel = 0
+RTS.Position = UDim2.new(0.0249307472, 0, 0.128526643, 0)
+RTS.Size = UDim2.new(0, 344, 0, 22)
+RTS.ZIndex = 2
+RTS.Font = Enum.Font.Highway
+RTS.Text = "Return-to-Player"
+RTS.TextColor3 = Color3.fromRGB(255, 255, 255)
+RTS.TextSize = 17.000
+RTS.TextWrapped = true
+RTS.MouseButton1Down:connect(function()
+	local LocalPlayer = game.Players.LocalPlayer
+	local Character = LocalPlayer.Character
+
+	game:GetService("RunService").Stepped:Connect(function()
+		pcall(function()
+			if LocalPlayer.Backpack:FindFirstChild("Bomb") then
+				print("backpack bomb")
+				LocalPlayer.Backpack:FindFirstChild("Bomb").Parent = Character
+			else
+				print("no backpack bomb")
+			end
+			if LocalPlayer.Character:FindFirstChild("Bomb") then
+				print("character bomb")
+				local BombEvent = LocalPlayer.Character:FindFirstChild("Bomb"):FindFirstChild("RemoteEvent")
+				for _,Player in next, game.Players:GetPlayers() do
+					if Player ~= LocalPlayer then
+						if Player.Character and Player.Character.Parent == workspace then
+							warn("Hitting" .. Player.Name)
+							local LastPlace = Character.HumanoidRootPart.CFrame
+							for i=1,50 do
+								Character.HumanoidRootPart.CFrame = Player.Character.HumanoidRootPart.CFrame
+							end
+							wait(0.1)
+							BombEvent:FireServer(Player.Character, Player.Character:FindFirstChild("CollisionPart"))
+							wait()
+							Character.HumanoidRootPart.CFrame = LastPlace
+							break;
+						end 
+					end
+				end
+			else
+				print("No character bomb")
+			end
+		end)
+	end)
+
+	game.StarterGui:SetCore("SendNotification",{
+		Title = "Notification";
+		Text = "RTS loaded";
+		Icon = "7164585376";
+
+
+	})
+
+	game.StarterGui:SetCore("SendNotification",{
+		Title = "Notification";
+		Text = "Press button after every round";
+		Icon = "7164585376";
+
+
+	})
+end)
+TextButton_Roundify_4px.Name = "TextButton_Roundify_4px"
+TextButton_Roundify_4px.Parent = RTS
+TextButton_Roundify_4px.Active = true
+TextButton_Roundify_4px.AnchorPoint = Vector2.new(0.5, 0.5)
+TextButton_Roundify_4px.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton_Roundify_4px.BackgroundTransparency = 1.000
+TextButton_Roundify_4px.Position = UDim2.new(0.5, 0, 0.5, 0)
+TextButton_Roundify_4px.Selectable = true
+TextButton_Roundify_4px.Size = UDim2.new(1, 0, 1, 0)
+TextButton_Roundify_4px.Image = "rbxassetid://3570695787"
+TextButton_Roundify_4px.ImageColor3 = Color3.fromRGB(136, 0, 255)
+TextButton_Roundify_4px.ScaleType = Enum.ScaleType.Slice
+TextButton_Roundify_4px.SliceCenter = Rect.new(100, 100, 100, 100)
+TextButton_Roundify_4px.SliceScale = 0.040
+
+RHB.Name = "RHB"
+RHB.Parent = Main
+RHB.BackgroundColor3 = Color3.fromRGB(136, 0, 255)
+RHB.BackgroundTransparency = 1.000
+RHB.BorderColor3 = Color3.fromRGB(27, 42, 53)
+RHB.BorderSizePixel = 0
+RHB.Position = UDim2.new(0.0249307472, 0, 0.216300935, 0)
+RHB.Size = UDim2.new(0, 344, 0, 22)
+RHB.ZIndex = 2
+RHB.Font = Enum.Font.Highway
+RHB.Text = "Remove-Hit-Box"
+RHB.TextColor3 = Color3.fromRGB(255, 255, 255)
+RHB.TextSize = 17.000
+RHB.TextWrapped = true
+local function sendNotification(title, text, icon)
+    game.StarterGui:SetCore("SendNotification", {
+        Title = title;
+        Text = text;
+        Icon = icon;
+    })
+end
+
+RHB.MouseButton1Down:Connect(function()
+    sendNotification("Notification", "RHB loaded", "7164585376")
+    sendNotification("Notification", "Press button after every round", "7164585376")
+
+    local LocalPlayer = game.Players.LocalPlayer
+
+    local function destroyCollisionPart(character)
+        pcall(function()
+            local collisionPart = character:FindFirstChild("CollisionPart")
+            if collisionPart then
+                collisionPart:Destroy()
+                print("No More Hitbox")
+            end
+        end)
+    end
+
+    -- Destroy CollisionPart in current character
+    if LocalPlayer.Character then
+        destroyCollisionPart(LocalPlayer.Character)
+    end
+
+    -- Connect to CharacterAdded event to handle future characters
+    LocalPlayer.CharacterAdded:Connect(function(character)
+        for destructionIteration = 1, 100 do
+            wait()
+            destroyCollisionPart(character)
+        end
+    end)
+end)
+
+TextButton_Roundify_4px_2.Name = "TextButton_Roundify_4px"
+TextButton_Roundify_4px_2.Parent = RHB
+TextButton_Roundify_4px_2.Active = true
+TextButton_Roundify_4px_2.AnchorPoint = Vector2.new(0.5, 0.5)
+TextButton_Roundify_4px_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton_Roundify_4px_2.BackgroundTransparency = 1.000
+TextButton_Roundify_4px_2.Position = UDim2.new(0.5, 0, 0.5, 0)
+TextButton_Roundify_4px_2.Selectable = true
+TextButton_Roundify_4px_2.Size = UDim2.new(1, 0, 1, 0)
+TextButton_Roundify_4px_2.Image = "rbxassetid://3570695787"
+TextButton_Roundify_4px_2.ImageColor3 = Color3.fromRGB(136, 0, 255)
+TextButton_Roundify_4px_2.ScaleType = Enum.ScaleType.Slice
+TextButton_Roundify_4px_2.SliceCenter = Rect.new(100, 100, 100, 100)
+TextButton_Roundify_4px_2.SliceScale = 0.040
+
+IY.Name = "IY"
+IY.Parent = Main
+IY.BackgroundColor3 = Color3.fromRGB(136, 0, 255)
+IY.BackgroundTransparency = 1.000
+IY.BorderColor3 = Color3.fromRGB(27, 42, 53)
+IY.BorderSizePixel = 0
+IY.Position = UDim2.new(0.0249307472, 0, 0.307210028, 0)
+IY.Size = UDim2.new(0, 344, 0, 22)
+IY.ZIndex = 2
+IY.Font = Enum.Font.Highway
+IY.Text = "Infinite-Yeild"
+IY.TextColor3 = Color3.fromRGB(255, 255, 255)
+IY.TextSize = 17.000
+IY.TextWrapped = true
+IY.MouseButton1Down:connect(function()
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+	game.StarterGui:SetCore("SendNotification",{
+		Title = "Notification";
+		Text = "Infinite Yeild Loaded";
+		Icon = "7164585376";
+
+
+	})
+end)
+TextButton_Roundify_4px_3.Name = "TextButton_Roundify_4px"
+TextButton_Roundify_4px_3.Parent = IY
+TextButton_Roundify_4px_3.Active = true
+TextButton_Roundify_4px_3.AnchorPoint = Vector2.new(0.5, 0.5)
+TextButton_Roundify_4px_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton_Roundify_4px_3.BackgroundTransparency = 1.000
+TextButton_Roundify_4px_3.Position = UDim2.new(0.5, 0, 0.5, 0)
+TextButton_Roundify_4px_3.Selectable = true
+TextButton_Roundify_4px_3.Size = UDim2.new(1, 0, 1, 0)
+TextButton_Roundify_4px_3.Image = "rbxassetid://3570695787"
+TextButton_Roundify_4px_3.ImageColor3 = Color3.fromRGB(136, 0, 255)
+TextButton_Roundify_4px_3.ScaleType = Enum.ScaleType.Slice
+TextButton_Roundify_4px_3.SliceCenter = Rect.new(100, 100, 100, 100)
+TextButton_Roundify_4px_3.SliceScale = 0.040
+
+-- Scripts:
+
+local function VDLO_fake_script() -- HomeB.Tabs 
+	local script = Instance.new('LocalScript', HomeB)
+
+	script.Parent.MouseButton1Click:connect(function()
+		script.Parent.Parent.Home.Visible = true
+		script.Parent.Parent.Credit.Visible = false
+		script.Parent.Parent.Main.Visible = false
+		
+		wait(0.1)
+	end)
+end
+coroutine.wrap(VDLO_fake_script)()
+local function QDXM_fake_script() -- MainB.Tabs 
+	local script = Instance.new('LocalScript', MainB)
+
+	script.Parent.MouseButton1Click:connect(function()
+		script.Parent.Parent.Home.Visible = false
+		script.Parent.Parent.Credit.Visible = false
+		script.Parent.Parent.Main.Visible = true
+		
+		wait(0.1)
+	end)
+end
+coroutine.wrap(QDXM_fake_script)()
+local function OXSGRSU_fake_script() -- CreditB.Tabs 
+	local script = Instance.new('LocalScript', CreditB)
+
+	script.Parent.MouseButton1Click:connect(function()
+		script.Parent.Parent.Home.Visible = false
+		script.Parent.Parent.Credit.Visible = true
+		script.Parent.Parent.Main.Visible = false
+		
+		wait(0.1)
+	end)
+end
+coroutine.wrap(OXSGRSU_fake_script)()
