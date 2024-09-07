@@ -1,5 +1,25 @@
-game.UserInputService.InputEnded:Connect(function(key)
-if key.KeyCode == Enum.KeyCode.Q then
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 350
+local Players = game:GetService("Players")
+
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+
+local humanoid = character:WaitForChild("Humanoid")
+
+local normalSpeed = 16  -- Velocidad normal
+local fastSpeed = 350   -- Velocidad rápida
+
+local function onKeyPress(input)
+    if input.KeyCode == Enum.KeyCode.Q then
+        humanoid.WalkSpeed = fastSpeed
+    end
 end
-end)
+
+game:GetService("UserInputService").InputBegan:Connect(onKeyPress)
+
+local function onKeyRelease(input)
+    if input.KeyCode == Enum.KeyCode.Q then
+        humanoid.WalkSpeed = normalSpeed
+    end
+end
+
+game:GetService("UserInputService").InputEnded:Connect(onKeyRelease)
