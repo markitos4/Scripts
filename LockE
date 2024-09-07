@@ -1,1 +1,104 @@
+local player = game.Players.LocalPlayer
+local mouse = player:GetMouse()
+local aimlockEnabled = false
+local aimlockTarget = nil
+local predictionStrength = 0.154  -- Ajusta según el movimiento del objetivo
+local aimKey = Enum.KeyCode.E  -- Tecla para alternar Aimlock
+local detectionRange = 100  -- Rango en el que se considerará el objetivo
 
+local function getClosestTarget()
+    local closestTarget = nil
+    local shortestDistance = detectionRange
+
+    for _, v in pairs(game.Players:GetPlayers()) do
+        if v ~= player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
+            local rootPart = v.Character.HumanoidRootPart
+            local screenPoint = workspace.CurrentCamera:WorldToScreenPoint(rootPart.Position)
+            local distance = (Vector2.new(screenPoint.X, screenPoint.Y) - Vector2.new(mouse.X, mouse.Y)).magnitude
+
+            if distance < shortestDistance then
+                -- Verificar si el raycast impacta con el HumanoidRootPart del jugador
+                local ray = Ray.new(workspace.CurrentCamera.CFrame.Position, (rootPart.Position - workspace.CurrentCamera.CFrame.Position).unit * 1000)
+                local hit = workspace:FindPartOnRay(ray, player.Character)
+                
+                if hit and hit:IsDescendantOf(v.Character) then
+                    closestTarget = v.Character
+                    shortestDistance = distance
+                end
+            end
+        end
+    end
+
+    return closestTarget
+end
+
+local function toggleAimlock()
+    aimlockEnabled = not aimlockEnabled
+    if aimlockEnabled then
+        aimlockTarget = getClosestTarget()  -- Fijar el objetivo más cercano al cursor al activarse
+        if aimlockTarget then
+            game.StarterGui:SetCore("SendNotification", {
+                Title = "Aimlock",
+                Text = "Aimlock activado: " .. aimlockTarget.Name,
+                Duration = 2
+            })
+        else
+            aimlockEnabled = false
+            aimlockTarget = nil
+            game.StarterGui:SetCore("SendNotification", {
+                Title = "Aimlock",
+                Text = "No se encontró objetivo",
+                Duration = 2
+            })
+        end
+    else
+        aimlockTarget = nil
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "Aimlock",
+            Text = "Aimlock desactivado",
+            Duration = 2
+        })
+    end
+end
+
+game:GetService("UserInputService").InputBegan:Connect(function(input)
+    if input.KeyCode == aimKey then
+        toggleAimlock()
+    end
+end)
+
+local function predictPosition(target)
+    if target and target:FindFirstChild("HumanoidRootPart") then
+        local velocity = target.HumanoidRootPart.Velocity
+        local predictedPosition = target.HumanoidRootPart.Position + (velocity * predictionStrength)
+        return predictedPosition
+    end
+    return nil
+end
+
+game:GetService("RunService").RenderStepped:Connect(function()
+    if aimlockEnabled and aimlockTarget then
+        local predictedPosition = predictPosition(aimlockTarget)
+        if predictedPosition then
+            -- Hacer que la cámara mire hacia el objetivo
+            local camera = workspace.CurrentCamera
+            camera.CFrame = CFrame.new(camera.CFrame.Position, predictedPosition)
+        end
+    end
+end)
+
+local function onCharacterAdded(character)
+    -- Asegurarse de que el Aimlock se mantenga activo tras el respawn
+    if aimlockEnabled then
+        -- Esperar a que el nuevo personaje tenga un HumanoidRootPart
+        repeat wait() until character:FindFirstChild("HumanoidRootPart")
+        -- Intenta reasignar el objetivo si sigue siendo válido
+        aimlockTarget = getClosestTarget()
+    end
+end
+
+player.CharacterAdded:Connect(onCharacterAdded)
+
+if player.Character then
+    onCharacterAdded(player.Character)
+end
