@@ -6,6 +6,31 @@ local predictionStrength = 0.154  -- Ajusta según el movimiento del objetivo
 local aimKey = Enum.KeyCode.T  -- Tecla para alternar Aimlock
 local detectionRange = 100  -- Rango en el que se considerará el objetivo
 
+local function createESP(target)
+    local espPart = Instance.new("Part")
+    espPart.Size = Vector3.new(1, 1, 1)
+    espPart.Anchored = true
+    espPart.CanCollide = false
+    espPart.BrickColor = BrickColor.new("Bright red")
+    espPart.Material = Enum.Material.SmoothPlastic
+    espPart.Transparency = 0.5
+    espPart.Parent = workspace.CurrentCamera
+
+    local billboard = Instance.new("BillboardGui")
+    billboard.Parent = espPart
+    billboard.Size = UDim2.new(0, 100, 0, 100)
+    billboard.AlwaysOnTop = true
+    billboard.Adornee = espPart
+
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(1, 0, 1, 0)
+    frame.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    frame.BorderSizePixel = 0
+    frame.Parent = billboard
+
+    return espPart
+end
+
 local function getClosestTarget()
     local closestTarget = nil
     local shortestDistance = detectionRange
@@ -42,6 +67,13 @@ local function toggleAimlock()
                 Text = "Aimlock activado: " .. aimlockTarget.Name,
                 Duration = 2
             })
+
+            -- Añadir ESP al objetivo
+            if not aimlockTarget:FindFirstChild("ESP") then
+                local espPart = createESP(aimlockTarget)
+                espPart.Name = "ESP"
+                espPart.Position = aimlockTarget.HumanoidRootPart.Position
+            end
         else
             aimlockEnabled = false
             aimlockTarget = nil
@@ -58,6 +90,11 @@ local function toggleAimlock()
             Text = "Aimlock desactivado",
             Duration = 2
         })
+        -- Limpiar ESP si es necesario
+        local espPart = workspace.CurrentCamera:FindFirstChild("ESP")
+        if espPart then
+            espPart:Destroy()
+        end
     end
 end
 
@@ -83,6 +120,12 @@ game:GetService("RunService").RenderStepped:Connect(function()
             -- Hacer que la cámara mire hacia el objetivo
             local camera = workspace.CurrentCamera
             camera.CFrame = CFrame.new(camera.CFrame.Position, predictedPosition)
+
+            -- Actualizar la posición del ESP
+            local espPart = workspace.CurrentCamera:FindFirstChild("ESP")
+            if espPart then
+                espPart.Position = predictedPosition
+            end
         end
     end
 end)
