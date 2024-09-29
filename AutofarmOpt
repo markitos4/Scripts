@@ -1,4 +1,4 @@
-
+--// @trans
 if (not game:IsLoaded()) then 
 	game.Loaded:Wait()
 	task.wait(1)
@@ -162,30 +162,6 @@ task.spawn(function()
 		end
 	end
 end)
-
-if not game:IsLoaded() then 
-    game.Loaded:Wait()
-    task.wait(2)
-end
-
-repeat 
-    task.wait(0.25)
-until game:GetService("Players") and game:GetService("Players").LocalPlayer
-
-task.wait(1)
-local a = game:GetService("Players").LocalPlayer
-
-repeat 
-    task.wait(0.25)
-until a.Character and a.Character:FindFirstChild("Humanoid") and a.Character:FindFirstChild("FULLY_LOADED_CHAR")
-
-task.wait(2)
-
-for b, c in pairs(getgenv()._CODES_) do 
-    game:GetService("ReplicatedStorage").MainEvent:FireServer("EnterPromoCode", c)
-    task.wait(2)
-end
-
 
 local StartCash = Player.DataFolder.Currency.Value
 task.spawn(function()
