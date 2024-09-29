@@ -40,7 +40,7 @@ Player.DevCameraOcclusionMode = Enum.DevCameraOcclusionMode.Invisicam
 Player.CameraMaxZoomDistance = 6
 Player.CameraMinZoomDistance = 6
 
-TL.Text = "autofarm fix - @trans\n@"..Player.Name.."\n$999,999,999"
+TL.Text = "AutoFarm V1.2\n@"..Player.Name.."\n$999,999,999"
 
 pcall(function()local a=game:GetService("ReplicatedStorage").MainEvent;local b={"CHECKER_1","TeleportDetect","OneMoreTime"}local c;c=hookmetamethod(game,"__namecall",function(...)local d={...}local self=d[1]local e=getnamecallmethod()if e=="FireServer"and self==a and table.find(b,d[2])then return end return c(...)end)end)
 
@@ -163,11 +163,12 @@ task.spawn(function()
 	end
 end)
 
+
 local StartCash = Player.DataFolder.Currency.Value
 task.spawn(function()
 	while true and task.wait(0.5) do 
 		print(TL.Text)
-		TL.Text = "autofarm fix - @trans\n@"..Player.Name.."\n$"..tostring(Player.DataFolder.Currency.Value):reverse():gsub("...","%0,",math.floor((#tostring(Player.DataFolder.Currency.Value)-1)/3)):reverse().."\nATMS: "..tostring(Broken).."\n"..string.format("%02i:%02i:%02i", (os.time()-StartTick)/60^2, (os.time()-StartTick)/60%60, (os.time()-StartTick)%60).."\nProfit: $"..tostring(Player.DataFolder.Currency.Value-StartCash):reverse():gsub("...","%0,",math.floor((#tostring(Player.DataFolder.Currency.Value-StartCash)-1)/3)):reverse().."\n"..tostring(GetCashier()).."\nif you paid for this then youre\na retard and got scammed\navailable for free in gg/iku"
+		TL.Text = "AutoFarm V1.1\n@"..Player.Name.."\n$"..tostring(Player.DataFolder.Currency.Value):reverse():gsub("...","%0,",math.floor((#tostring(Player.DataFolder.Currency.Value)-1)/3)):reverse().."\nATMS: "..tostring(Broken).."\n"..string.format("%02i:%02i:%02i", (os.time()-StartTick)/60^2, (os.time()-StartTick)/60%60, (os.time()-StartTick)%60).."\nProfit: $"..tostring(Player.DataFolder.Currency.Value-StartCash):reverse():gsub("...","%0,",math.floor((#tostring(Player.DataFolder.Currency.Value-StartCash)-1)/3)):reverse().."\n"..tostring(GetCashier()).."\nCredits to @trans (trash)"
 	end
 end)
 
