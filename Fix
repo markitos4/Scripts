@@ -220,20 +220,40 @@ end
 
 local Player = game:GetService("Players").LocalPlayer
 
-while true do
-    task.wait(1)  -- Esperar 1 segundo
+local function equipCombat()
+    task.spawn(function()
+        while true do
+            task.wait(1)  -- Esperar 1 segundo
 
-    local CombatTool = Player.Backpack:FindFirstChild("Combat")
-    if CombatTool then
-        -- Si "Combat" no está equipado, equiparlo
-        if not Player.Character:FindFirstChild("Combat") then
-            CombatTool.Parent = Player.Character
-            print("Combat tool equipped.")
+            local CombatTool = Player.Backpack:FindFirstChild("Combat")
+            if CombatTool then
+                -- Si "Combat" no está equipado, equiparlo
+                if not Player.Character:FindFirstChild("Combat") then
+                    CombatTool.Parent = Player.Character
+                    print("Combat tool equipped.")
+                end
+            else
+                print("Combat tool not found in Backpack.")
+            end
         end
-    else
-        print("Combat tool not found in Backpack.")
-    end
+    end)
 end
+
+-- Conectar la función para equipar "Combat" cuando el personaje se añada
+Player.CharacterAdded:Connect(function()
+    -- Esperar a que el Humanoid esté disponible
+    local char = Player.Character or Player.CharacterAdded:Wait()
+    char:WaitForChild("Humanoid")
+    
+    equipCombat()  -- Iniciar el chequeo para equipar la herramienta
+end)
+
+-- Iniciar el chequeo por primera vez al cargar
+if Player.Character then
+    equipCombat()
+end
+
+
 
 Player.CharacterAdded:Connect(function(char)
     char:WaitForChild("Humanoid")
