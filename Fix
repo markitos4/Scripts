@@ -41,18 +41,7 @@ Player.CameraMinZoomDistance = 6
 
 TL.Text = "Loading...\nOnly works if da hood is loaded!"
 
-pcall(function()
-    local a = game:GetService("ReplicatedStorage").MainEvent
-    local b = { "CHECKER_1", "TeleportDetect", "OneMoreTime" }
-    local c
-    c = hookmetamethod(game, "__namecall", function(...)
-        local d = { ... }
-        local self = d[1]
-        local e = getnamecallmethod()
-        if e == "FireServer" and self == a and table.find(b, d[2]) then return end
-        return c(...)
-    end)
-end)
+pcall(function()local a=game:GetService("ReplicatedStorage").MainEvent;local b={"CHECKER_1","TeleportDetect","OneMoreTime"}local c;c=hookmetamethod(game,"__namecall",function(...)local d={...}local self=d[1]local e=getnamecallmethod()if e=="FireServer"and self==a and table.find(b,d[2])then return end return c(...)end)end)
 
 local Click = function(Part)
     local Input = game:GetService("VirtualInputManager")
