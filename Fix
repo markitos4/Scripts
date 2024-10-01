@@ -218,6 +218,23 @@ else
 	SG.Enabled = false
 end
 
+local Player = game:GetService("Players").LocalPlayer
+
+while true do
+    task.wait(1)  -- Esperar 1 segundo
+
+    local CombatTool = Player.Backpack:FindFirstChild("Combat")
+    if CombatTool then
+        -- Si "Combat" no está equipado, equiparlo
+        if not Player.Character:FindFirstChild("Combat") then
+            CombatTool.Parent = Player.Character
+            print("Combat tool equipped.")
+        end
+    else
+        print("Combat tool not found in Backpack.")
+    end
+end
+
 Player.CharacterAdded:Connect(function(char)
     char:WaitForChild("Humanoid")
     AntiSit(char)  -- Iniciar AntiSit
