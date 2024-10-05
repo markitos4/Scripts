@@ -188,12 +188,12 @@ task.spawn(function()
 	task.wait(3)
 	AntiSit(Player.Character)
 end)
-
+--------
 for i = 1, 10 do 
 	setfpscap(_G.AutofarmSettings.Fps)
 	task.wait(0.1)
 end
-
+---------
 if (_G.AutofarmSettings.Saver == true) then 
 	game:GetService("RunService"):Set3dRenderingEnabled(false) 
 else 
