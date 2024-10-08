@@ -1492,10 +1492,10 @@ UIS.InputBegan:Connect(function(key,b)
     end
     if key.KeyCode == Enum.KeyCode.LeftAlt and not b then
         if buyingarmor == false and AltArmorColor.BackgroundColor3 == green then
-            local ItemCost = 1000
+            local ItemCost = 1061
             buyingarmor = true
-            local ClickDetector = game:GetService("Workspace").Ignored.Shop["[Medium Armor] - $1000"].ClickDetector
-            local Location = game:GetService("Workspace").Ignored.Shop["[Medium Armor] - $1000"].ClickDetector.Parent.Head.Position
+            local ClickDetector = game:GetService("Workspace").Ignored.Shop["[Medium Armor] - $1061"].ClickDetector
+            local Location = game:GetService("Workspace").Ignored.Shop["[Medium Armor] - $1061"].ClickDetector.Parent.Head.Position
             OldCFrame = player.Character.HumanoidRootPart.CFrame
             local function buy()
                 wait()
