@@ -3,7 +3,7 @@ if (not game:IsLoaded()) then
 	task.wait(1)
 end
 
-local function startScript()
+local function StartMainScript()
 local SG = Instance.new("ScreenGui")
 SG.Parent = game:GetService("CoreGui")
 SG.Name = "abcdefg"
