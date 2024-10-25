@@ -10,7 +10,7 @@ local SendLog = function(Link, D)
 				["embeds"] = {{
 					["title"] = "**Username/UserID**:",
 					["description"] = D[1].." / "..tostring(D[2]),
-					["color"] = tonumber(0x510038),
+					["color"] = tonumber(0x501272),
 					["fields"] = {
 						{
 							["name"] = "Currency:",
