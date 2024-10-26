@@ -1,3 +1,6 @@
+
+
+
 local executor = identifyexecutor()
 if executor:sub(1, 6) == "Solara" or string.find(executor, "Solara") then
     game.Players.LocalPlayer:Kick("Fireclickdetector unavailable for solara.")
@@ -718,7 +721,7 @@ if (_G.AutofarmSettings.Credits ~= "Iku Autofarm Remake (@Glosary)") then
 end
 
 repeat task.wait(0.1) until (game:GetService("Players").LocalPlayer) and (game:GetService("Players").LocalPlayer.Character) and (game:GetService("Players").LocalPlayer.Character:FindFirstChild("FULLY_LOADED_CHAR"))
-
+--[[
 local plr = game:GetService("Players").LocalPlayer
 
 getgenv().Anti = true 
@@ -731,7 +734,7 @@ Anti = hookmetamethod(game, "__namecall", function(self, ...)
         return Anti(self, ...)
     end)
 
-
+]]
 pcall(function()local a=game:GetService("ReplicatedStorage").MainEvent;local b={"BreathingHAMON", "TeleportDetect", "JJARC", "TakePoisonDamage", "CHECKER_1", "CHECKER", "GUI_CHECK", "OneMoreTime", "checkingSPEED", "BANREMOTE", "PERMAIDBAN", "KICKREMOTE", "BR_KICKPC", "FORCEFIELD", "Christmas_Sock", "VirusCough", "Symbiote", "Symbioted", "RequestAFKDisplay", "kick", "Kick", "KICK", "tp", "teleport", "Teleport", "TELEPORT"}local c;c=hookmetamethod(game,"__namecall",function(...)local d={...}local self=d[1]local e=getnamecallmethod() if e=="FireServer"and self==a and table.find(b,d[2])then return end return c(...)end)end)
 task.wait(1)
 
