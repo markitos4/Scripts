@@ -1,0 +1,65 @@
+repeat
+    wait()
+until game:IsLoaded()
+
+local player = game:GetService("Players").LocalPlayer or game:GetService("Players").PlayerAdded:Wait()
+
+local suc, fail = nil, nil
+repeat 
+    suc, fail = pcall(function()
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Synapse Injected",
+            Text = "Enjoy, " .. player.DisplayName .. "!",
+            Icon = "rbxthumb://type=AvatarHeadShot&id=" .. player.UserId .. "&w=180&h=180",
+            Duration = 5
+        })
+    end) 
+until suc == true
+
+
+-- Prints
+
+print("Synapse injected! (Made By Glosary)")
+print("Credits to Xeno for the injection system.")
+
+-- Logo with blur --
+
+local screenGui = Instance.new("ScreenGui")
+local imageLabel = Instance.new("ImageLabel")
+local blurEffect = Instance.new("BlurEffect")
+local workspaceBlur = Instance.new("BlurEffect")
+screenGui.Name = "FadeImageGui"
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+imageLabel.Name = "FadingImage"
+imageLabel.Parent = screenGui
+imageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+imageLabel.Position = UDim2.new(0.5, 0, 0.5, 0) 
+imageLabel.Size = UDim2.new(0.25, 0, 0.50, 0) 
+imageLabel.Image = "rbxassetid://135695326418873"
+imageLabel.BackgroundTransparency = 1
+imageLabel.ImageTransparency = 1 
+blurEffect.Name = "ImageBlur"
+blurEffect.Parent = imageLabel
+blurEffect.Size = 24 
+workspaceBlur.Name = "WorkspaceBlur"
+workspaceBlur.Size = 24 
+workspaceBlur.Parent = game.Lighting 
+local fadeInTime = 1 
+local fadeOutTime = 3 
+local tweenService = game:GetService("TweenService")
+local targetTransparency = 0 
+local targetBlurSize = 0
+local transparencyTween = tweenService:Create(imageLabel, TweenInfo.new(fadeInTime, Enum.EasingStyle.Linear), {ImageTransparency = targetTransparency})
+local blurTween = tweenService:Create(blurEffect, TweenInfo.new(fadeInTime, Enum.EasingStyle.Linear), {Size = targetBlurSize})
+transparencyTween:Play()
+blurTween:Play()
+transparencyTween.Completed:Wait()
+local targetSize = UDim2.new(0.15, 0, 0.30, 0)
+local sizeTween = tweenService:Create(imageLabel, TweenInfo.new(fadeOutTime, Enum.EasingStyle.Linear), {Size = targetSize, ImageTransparency = 1})
+local workspaceBlurTween = tweenService:Create(workspaceBlur, TweenInfo.new(fadeOutTime, Enum.EasingStyle.Linear), {Size = 0})
+sizeTween:Play()
+workspaceBlurTween:Play()
+sizeTween.Completed:Connect(function()
+    workspaceBlur:Destroy() 
+    screenGui:Destroy() 
+end)
