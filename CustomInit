@@ -3,7 +3,7 @@ repeat
 until game:IsLoaded()
 
 local player = game:GetService("Players").LocalPlayer or game:GetService("Players").PlayerAdded:Wait()
-
+--[[
 local suc, fail = nil, nil
 repeat 
     suc, fail = pcall(function()
@@ -15,7 +15,7 @@ repeat
         })
     end) 
 until suc == true
-
+]]
 
 -- Prints
 
