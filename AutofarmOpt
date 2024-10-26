@@ -1,9 +1,15 @@
+
+
+
+
+-------- To Do: Make it work in no macro servers, improve code, enable in deads, enable after koed, fix anticheat, make auto kick if a id joins the game, auto mask when you join, webhook logs sender, make ignore cashiers, make knife option, add auto block option.
+
+
 if (not game:IsLoaded()) then 
 	game.Loaded:Wait()
 	task.wait(1)
 end
 
-repeat task.wait(0.1) until (game:GetService("Players").LocalPlayer) and (game:GetService("Players").LocalPlayer.Character)
 
 local SG = Instance.new("ScreenGui")
 SG.Parent = game:GetService("CoreGui")
@@ -12,6 +18,9 @@ SG.IgnoreGuiInset = true
 local TL = Instance.new("TextLabel")
 TL.Parent = SG 
 TL.BackgroundColor3 = Color3.fromRGB(22, 22, 22)
+
+TL.BackgroundTransparency = 0.8
+
 TL.Active = false
 TL.Font = Enum.Font.MontserratMedium
 TL.TextColor3 = Color3.fromRGB(200, 200, 200)
@@ -22,11 +31,12 @@ TL.Size = UDim2.new(1, 0, 1, 0)
 
 
 local Player = game:GetService("Players").LocalPlayer
-local Cashiers = workspace.Cashiers 
+local Cashiers = workspace.Cashiers
 local Drop = workspace.Ignored.Drop
 local Dis = false
 local Broken = 0 
 local StartTick = os.time()
+local farming = false
 
 _G.Disable = function()
 	Dis = true
@@ -41,9 +51,27 @@ Player.CameraMinZoomDistance = 6
 
 TL.Text = "Loading..."
 
-pcall(function()local a=game:GetService("ReplicatedStorage").MainEvent;local b={"CHECKER_1","TeleportDetect","OneMoreTime"}local c;c=hookmetamethod(game,"__namecall",function(...)local d={...}local self=d[1]local e=getnamecallmethod()if e=="FireServer"and self==a and table.find(b,d[2])then return end return c(...)end)end)
+repeat task.wait(0.1) until (game:GetService("Players").LocalPlayer) and (game:GetService("Players").LocalPlayer.Character) and (game:GetService("Players").LocalPlayer.Character:FindFirstChild("FULLY_LOADED_CHAR"))
+
+pcall(function()local a=game:GetService("ReplicatedStorage").MainEvent;local b={"BreathingHAMON", "TeleportDetect", "JJARC", "TakePoisonDamage", "CHECKER_1", "CHECKER", "GUI_CHECK", "OneMoreTime", "checkingSPEED", "BANREMOTE", "PERMAIDBAN", "KICKREMOTE", "BR_KICKPC", "FORCEFIELD", "Christmas_Sock", "VirusCough", "Symbiote", "Symbioted", "RequestAFKDisplay", "kick", "Kick", "KICK", "tp", "teleport", "Teleport", "TELEPORT"}local c;c=hookmetamethod(game,"__namecall",function(...)local d={...}local self=d[1]local e=getnamecallmethod()if e=="FireServer"and self==a and table.find(b,d[2])then return end return c(...)end)end)
+
+local plr = game:GetService("Players").LocalPlayer
+
+getgenv().Anti = true 
+
+local Anti
+Anti = hookmetamethod(game, "__namecall", function(self, ...)
+        if self == plr and getnamecallmethod():lower() == "kick" and getgenv().Anti then
+            return warn("[ANTI-KICK] Client Tried To Call Kick Function On LocalPlayer")
+        end
+        return Anti(self, ...)
+    end)
+
+
+
 
 local Click = function(Part)
+    
 	local Input = game:GetService("VirtualInputManager")
 	local Pos = workspace.Camera:WorldToScreenPoint(Part.Position)
 	local T = os.time()
@@ -60,16 +88,16 @@ local Click = function(Part)
 	until (Part == nil) or (Part:FindFirstChild("ClickDetector") == nil) or (os.time()-T>=2)
 end
 
-local AntiSit = function(Char)
-	task.wait(1)	
-	local Hum = Char:WaitForChild("Humanoid")
-	Hum.Seated:Connect(function()
-		warn("SITTING")
-		Hum.Sit = false
-		Hum:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
-		task.wait(0.3)
-		Hum.Jump = true
-	end)
+local IsDead = function()
+	return (Player.Character.BodyEffects["K.O"].Value == true)
+end
+
+local AntiSit = function()
+    for i,v in next, workspace:GetDescendants() do
+        if v:IsA'Seat' then
+            v:Destroy()
+        end
+    end
 end
 
 local GetCash = function()
@@ -93,7 +121,12 @@ local GetCash = function()
 end
 
 local GetCashier = function()
-	for i,v in pairs(Cashiers:GetChildren()) do 
+    for i, v in pairs(Cashiers:GetChildren()) do
+
+        if v.Name == "VAULT" then
+            continue
+        end
+
 		if (i == 15) and (Vector3.new(-625, 10, -286) - v.Head.Position).Magnitude <= 20 then 
 			v:MoveTo(Vector3.new(-622.948, 24, -286.52))
 			for x,z in pairs(v:GetChildren()) do 
@@ -112,9 +145,11 @@ local GetCashier = function()
 		
 		if (v.Humanoid.Health > 0) then 
 			return v 
+		else
+			return nil
 		end
+		
 	end
-	return nil
 end
 
 local To = function(CF)
@@ -122,27 +157,65 @@ local To = function(CF)
 	Player.Character.HumanoidRootPart.Velocity = Vector3.new(0, 0, 0)
 end
 
+local function startAutoFarm()
 task.spawn(function()
-	while true and task.wait() do 
-		if (Player.Character == nil) or (Player.Character:FindFirstChild("FULLY_LOADED_CHAR") == nil) or (Dis == true) then 
-			return print("NO")
-		end
+    farming = true
+    while farming do 
+        while farming do
+            if (Player.Character == nil) or (Player.Character:FindFirstChild("FULLY_LOADED_CHAR") == nil) or (Dis == true) then 
+                wait(1) 
+            else
+                break
+            end
+        end
+		
+		if not farming then return end
 		
 		local Cashier = nil
 		repeat 
 			Cashier = GetCashier()
 
-			if (Player.Backpack:FindFirstChild("Combat") ~= nil) then 
-				Player.Backpack.Combat.Parent = Player.Character 
-			end
+			--------------------------------
+			if Player.Backpack:FindFirstChild("[Knife]") then
+				Player.Backpack["[Knife]"].Parent = Player.Character
+			elseif Player.Character:FindFirstChild("[Knife]") then
+				-----
 
+			else
+				local ItemCost = 159
+				local KnifeBuy = game:GetService("Workspace").Ignored.Shop["[Knife] - $159"]
+
+                local function buy()
+					Player.Character.HumanoidRootPart.CFrame = KnifeBuy.Head.CFrame + Vector3.new(0, 3.2, 0)
+					task.wait(0.2)
+					fireclickdetector(KnifeBuy.ClickDetector)
+                end
+
+                repeat
+                    buy()
+                until (Player.Backpack:FindFirstChild("[Knife]")) or (Player.Character:FindFirstChild("[Knife]"))
+
+				wait(1)
+				
+				if (Player.Backpack:FindFirstChild("[Knife]")) then 
+					task.wait(0.66)
+					pcall(function()
+						Player.Backpack["[Knife]"].Parent = Player.Character
+					end)
+				end
+			end
+			-----
 			task.wait()
 		until (Cashier ~= nil)
 		
-		repeat 
+		repeat
+			while Cashier == nil do
+				task.wait()
+			end
+
 			To( (Cashier.Head.CFrame+Vector3.new(0, -2.5, 0)) * CFrame.Angles(math.rad(90), 0, 0) ) 
 			task.wait()
-			Player.Character.Combat:Activate()
+			Player.Character["[Knife]"]:Activate()
 		until (Cashier.Humanoid.Health <= 0)
 		Broken += 1
 
@@ -154,6 +227,8 @@ task.spawn(function()
 			end
 		end
 		
+		if not farming then return end
+
 		local Cash = GetCash()
 		
 		for i,v in pairs(Cash) do 
@@ -161,14 +236,27 @@ task.spawn(function()
 		end
 	end
 end)
+end
+
 local TotalPlayers = #game.Players:GetPlayers()
 local StartCash = Player.DataFolder.Currency.Value
 task.spawn(function()
 	while true and task.wait(0.5) do 
-		print(TL.Text)
-		TL.Text = "Auto Farm V1.4\n@"..Player.Name.. "\nTotal Players: " .. tostring(TotalPlayers) .. "\n$"..tostring(Player.DataFolder.Currency.Value):reverse():gsub("...","%0,",math.floor((#tostring(Player.DataFolder.Currency.Value)-1)/3)):reverse().."\nATMS: "..tostring(Broken).."\n"..string.format("%02i:%02i:%02i", (os.time()-StartTick)/60^2, (os.time()-StartTick)/60%60, (os.time()-StartTick)%60).."\nProfit: $"..tostring(Player.DataFolder.Currency.Value-StartCash):reverse():gsub("...","%0,",math.floor((#tostring(Player.DataFolder.Currency.Value-StartCash)-1)/3)):reverse().."\n"..tostring(GetCashier())
+		--print(TL.Text)
+		TL.Text = "Auto Farm V1.5\n@"..Player.Name.. 
+        "\nTotal Players: " .. tostring(TotalPlayers) .. 
+        "\n$"..tostring(Player.DataFolder.Currency.Value):reverse():gsub("...","%0,",math.floor((#tostring(Player.DataFolder.Currency.Value)-1)/3)):reverse()..
+        "\nATMS: "..tostring(Broken)..
+        "\n"..string.format("%02i:%02i:%02i", (os.time()-StartTick)/60^2, (os.time()-StartTick)/60%60, (os.time()-StartTick)%60)..
+        "\nProfit: $"..tostring(Player.DataFolder.Currency.Value-StartCash):reverse():gsub("...","%0,",math.floor((#tostring(Player.DataFolder.Currency.Value-StartCash)-1)/3)):reverse()..
+        "\n"..tostring(GetCashier())
 	end
 end)
+
+
+local function stopAutoFarm()
+	farming = false
+end
 
 
 Player.Idled:Connect(function()
@@ -180,13 +268,20 @@ Player.Idled:Connect(function()
 	end
 end)
 
-pcall(function() UserSettings().GameSettings.MasterVolume = 0 end)
-pcall(function() settings().Rendering.QualityLevel = "Level01" end)
+startAutoFarm() 
+
+while true do
+	stopAutoFarm()
+	wait(2)
+	startAutoFarm()
+	print("Reloaded autofarm.")
+    wait(300)
+end
 
 Player.CharacterAdded:Connect(AntiSit)
 task.spawn(function()
 	task.wait(3)
-	AntiSit(Player.Character)
+	AntiSit()
 end)
 --------
 for i = 1, 10 do 
@@ -194,8 +289,115 @@ for i = 1, 10 do
 	task.wait(0.1)
 end
 ---------
-if (_G.AutofarmSettings.Saver == true) then 
-	game:GetService("RunService"):Set3dRenderingEnabled(false) 
-else 
-	SG.Enabled = false
+task.spawn(function()
+	local transparencyValue = _G.AutofarmSettings.BackGroundTransparency
+	TL.BackgroundTransparency = transparencyValue
+	--SG.Enabled = false
+end)
+---------
+
+if (_G.AutofarmSettings.Credits ~= "Iku Autofarm Modded (@Glosary)") then 
+	Player:Kick("Dont touch the credits.")
+	task.wait(1)
+	Cashiers:Destroy()
+end
+
+
+------
+if _G.AutofarmSettings.OptimizeFPS == true then 
+pcall(function() UserSettings().GameSettings.MasterVolume = 0 end)
+pcall(function() settings().Rendering.QualityLevel = "Level01" end)
+
+	local function cambiarMaterialAPlastico(objeto)
+
+		if objeto:IsA("BasePart") then
+			objeto.Material = Enum.Material.Plastic
+		end
+		
+		for _, hijo in pairs(objeto:GetChildren()) do
+			cambiarMaterialAPlastico(hijo)
+		end
+	end
+	
+	for _, objeto in pairs(game.Workspace:GetDescendants()) do
+		cambiarMaterialAPlastico(objeto)
+	end
+	
+end
+------
+
+task.spawn(function()
+    pcall(function()
+        for i,v in pairs(_G.AutofarmSettings.Codes) do 
+            game:GetService("ReplicatedStorage").MainEvent:FireServer("EnterPromoCode", v)
+            task.wait(2)
+        end
+    end)
+end)
+
+-----
+local buyingarmor = false
+
+while true do
+    wait(0.1) 
+    local function WaitForRevive()
+        
+         while Player.Character:WaitForChild("BodyEffects"):FindFirstChild("K.O") and Player.Character:WaitForChild("BodyEffects")["K.O"].Value == true do
+            wait(0.5) 
+        end
+    
+        print("Character not koed anymore.")
+    end
+
+    if IsDead() then
+        stopAutoFarm()
+        WaitForRevive()
+        wait(2)
+        startAutoFarm()
+    end
+
+	
+    if _G.AutofarmSettings.AutoBuyArmor == true then
+        if Player.Character:WaitForChild("BodyEffects").Armor.Value < 100 then
+            stopAutoFarm()  
+
+            if buyingarmor == false then
+                buyingarmor = true 
+
+                local ItemCost = 2300
+                local HighArmorClick = game:GetService("Workspace").Ignored.Shop["[High-Medium Armor] - $2440"].ClickDetector
+				local HighArmorPad = game:GetService("Workspace").Ignored.Shop["[High-Medium Armor] - $2440"]
+				
+
+                local function buy()
+					Player.Character.HumanoidRootPart.CFrame = HighArmorPad.Head.CFrame + Vector3.new(0, 3.2, 0)
+                    fireclickdetector(HighArmorClick)
+                end
+
+                repeat
+                    buy()
+                until Player.Character.BodyEffects.Armor.Value == 100 or Player.DataFolder.Currency.Value < ItemCost
+
+                buyingarmor = false
+                wait(2)
+                startAutoFarm() 
+            end
+        end
+    end
+end
+
+
+---------
+local player = game.Players.LocalPlayer
+
+local function onCharacterAdded(character)
+    print("Character added / stomped / resetted.")
+    wait(5)
+    startAutoFarm()
+end
+
+player.CharacterAdded:Connect(onCharacterAdded)
+
+if player.Character then
+    onCharacterAdded(player.Character)
 end
