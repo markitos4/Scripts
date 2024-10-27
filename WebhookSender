@@ -1,5 +1,5 @@
 local SendLog = function(Link, D)
-	local Link = _G.AutofarmSettings.Webhook 
+	local Link = _G.AutofarmSettings.Webhook.Link 
 
 	if (Link ~= "") then 
 		warn("Trying to send message throught the webhook.")
