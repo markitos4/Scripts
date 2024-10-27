@@ -3,6 +3,23 @@ repeat
 until game:IsLoaded()
 
 local player = game:GetService("Players").LocalPlayer or game:GetService("Players").PlayerAdded:Wait()
+
+local RunService = game:GetService("RunService")
+
+local lagDuration = 0.9
+
+local function causeLag()
+    local startTime = tick()
+    while tick() - startTime < lagDuration do
+        for i = 1, 30000000 do
+            math.random()
+        end
+        RunService.RenderStepped:Wait() 
+    end
+end
+
+causeLag()
+
 --[[
 local suc, fail = nil, nil
 repeat 
