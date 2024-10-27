@@ -6,20 +6,24 @@ local player = game:GetService("Players").LocalPlayer or game:GetService("Player
 
 local RunService = game:GetService("RunService")
 
+-- Duración de la simulación de lag
 local lagDuration = 0.9
 
+-- Función para causar lag en el juego
 local function causeLag()
     local startTime = tick()
     while tick() - startTime < lagDuration do
         for i = 1, 30000000 do
-            math.random()
+            math.random() -- Generar números aleatorios para simular carga
         end
-        RunService.RenderStepped:Wait() 
+        RunService.RenderStepped:Wait() -- Esperar hasta el siguiente frame
     end
 end
 
+-- Causar lag
 causeLag()
 
+-- Enviar notificación (comentado)
 --[[
 local suc, fail = nil, nil
 repeat 
@@ -34,48 +38,62 @@ repeat
 until suc == true
 ]]
 
--- Prints
-
+-- Imprimir mensajes de estado en la consola
 print("Synapse injected! (Made By Glosary)")
 print("Credits to Xeno for the injection system.")
 
--- Logo with blur --
-
+-- Crear la GUI para el logo con efecto de desenfoque
 local screenGui = Instance.new("ScreenGui")
 local imageLabel = Instance.new("ImageLabel")
 local blurEffect = Instance.new("BlurEffect")
 local workspaceBlur = Instance.new("BlurEffect")
+
 screenGui.Name = "FadeImageGui"
 screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
 imageLabel.Name = "FadingImage"
 imageLabel.Parent = screenGui
 imageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-imageLabel.Position = UDim2.new(0.5, 0, 0.5, 0) 
-imageLabel.Size = UDim2.new(0.25, 0, 0.50, 0) 
+imageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+imageLabel.Size = UDim2.new(0.25, 0, 0.50, 0)
 imageLabel.Image = "rbxassetid://135695326418873"
 imageLabel.BackgroundTransparency = 1
 imageLabel.ImageTransparency = 1 
+
+-- Configurar efectos de desenfoque
 blurEffect.Name = "ImageBlur"
 blurEffect.Parent = imageLabel
-blurEffect.Size = 24 
+blurEffect.Size = 24
+
 workspaceBlur.Name = "WorkspaceBlur"
-workspaceBlur.Size = 24 
+workspaceBlur.Size = 24
 workspaceBlur.Parent = game.Lighting 
+
 local fadeInTime = 1 
 local fadeOutTime = 3 
 local tweenService = game:GetService("TweenService")
+
+-- Crear tweens para el efecto de desvanecimiento
 local targetTransparency = 0 
 local targetBlurSize = 0
+
 local transparencyTween = tweenService:Create(imageLabel, TweenInfo.new(fadeInTime, Enum.EasingStyle.Linear), {ImageTransparency = targetTransparency})
 local blurTween = tweenService:Create(blurEffect, TweenInfo.new(fadeInTime, Enum.EasingStyle.Linear), {Size = targetBlurSize})
+
 transparencyTween:Play()
 blurTween:Play()
-transparencyTween.Completed:Wait()
+
+transparencyTween.Completed:Wait() -- Esperar a que termine el desvanecimiento de entrada
+
+-- Tamaño objetivo para el desvanecimiento de salida
 local targetSize = UDim2.new(0.15, 0, 0.30, 0)
 local sizeTween = tweenService:Create(imageLabel, TweenInfo.new(fadeOutTime, Enum.EasingStyle.Linear), {Size = targetSize, ImageTransparency = 1})
 local workspaceBlurTween = tweenService:Create(workspaceBlur, TweenInfo.new(fadeOutTime, Enum.EasingStyle.Linear), {Size = 0})
+
 sizeTween:Play()
 workspaceBlurTween:Play()
+
+-- Limpieza al finalizar el efecto de desvanecimiento
 sizeTween.Completed:Connect(function()
     workspaceBlur:Destroy() 
     screenGui:Destroy() 
