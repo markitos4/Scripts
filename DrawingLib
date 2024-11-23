@@ -948,7 +948,7 @@ function drawingFunctions.isrenderobj(drawingObj)
 end
 
 function drawingFunctions.getrenderproperty(drawingObj, property)
-	assert(drawingObj[property] ~= nil, "'" .. tostring(property) .. "' is not a valid property of " .. tostring(drawingObj) .. ", " .. tostring(typeof(drawingObj)))
+	--assert(drawingObj[property] ~= nil, "'" .. tostring(property) .. "' is not a valid property of " .. tostring(drawingObj) .. ", " .. tostring(typeof(drawingObj)))
 	
 	local success, drawingProperty  = pcall(function()
 		return drawingObj[property]
