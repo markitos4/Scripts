@@ -2,7 +2,7 @@ local coreGui = game:GetService("CoreGui")
 
 local camera = workspace.CurrentCamera
 local drawingUI = Instance.new("ScreenGui")
-drawingUI.Name = "Drawing"
+drawingUI.Name = "Drawing | Xeno"
 drawingUI.IgnoreGuiInset = true
 drawingUI.DisplayOrder = 0x7fffffff
 drawingUI.Parent = coreGui
@@ -948,8 +948,6 @@ function drawingFunctions.isrenderobj(drawingObj)
 end
 
 function drawingFunctions.getrenderproperty(drawingObj, property)
-	--assert(drawingObj[property] ~= nil, "'" .. tostring(property) .. "' is not a valid property of " .. tostring(drawingObj) .. ", " .. tostring(typeof(drawingObj)))
-	
 	local success, drawingProperty  = pcall(function()
 		return drawingObj[property]
 	end)
