@@ -284,4 +284,4 @@ end
 
 task.wait(10)
 
-ReplicatedStorage.MainEvent:FireServer("CHECKER_2")
+ReplicatedStorage.MainEvent:FireServer("CHECKER_4")
