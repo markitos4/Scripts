@@ -1,0 +1,287 @@
+repeat 
+	wait()
+until game:IsLoaded() and game:GetService("Players") and game:GetService("Players").LocalPlayer
+
+local Workspace = game:FindService("Workspace")
+local Players = game:FindService("Players")
+local LocalPlayer = game:FindService("Players").LocalPlayer
+local ReplicatedStorage = game:FindService("ReplicatedStorage")
+local ReplicatedFirst = game:FindService("ReplicatedFirst")
+local Lighting = game:FindService("Lighting")
+local RobloxLighting = game:FindService("Lighting")
+local RobloxReplicatedFirst = game:FindService("ReplicatedFirst")
+local RobloxTestService = game:FindService("TestService")
+local StarterGui = game:FindService("StarterGui")
+local InsertService = game:FindService("InsertService")
+local CorePackages = game:FindService("CorePackages")
+local HttpService = game:FindService("HttpService")
+local TweenService = game:FindService("TweenService")
+local VirtualInputManager = game:FindService("VirtualInputManager")
+local UserInputService = game:FindService("UserInputService") 
+local MarketplaceService = game:FindService("MarketplaceService") 
+local RunService = game:FindService("RunService")
+local LogService = game:FindService("LogService")
+local RobloxLogService = game:FindService("LogService")
+local SoundService = game:FindService("SoundService")
+local Cashiers = game:GetService("Workspace").Cashiers 
+local Drop = game:GetService("Workspace"):FindFirstChild("Ignored").Drop
+
+local Broken = 0 
+local StartTick = os.time()
+local LogText = "Nothing"
+
+getgenv().AutofarmSettings = {
+
+    ["Interface"] = false, --// Interface with autofarm information.
+
+	["Autoblock"] = true, --// Autoblocks punchs.
+
+}
+
+while (LocalPlayer.Character == nil) or (LocalPlayer.Character:FindFirstChild("FULLY_LOADED_CHAR") == nil) do 
+	wait(1)
+end
+
+local RobloxGui = game.CoreGui
+local SG = Instance.new("ScreenGui")
+SG.Parent = RobloxGui
+SG.Name = ""
+SG.IgnoreGuiInset = true 
+local TL = Instance.new("TextLabel")
+TL.Parent = SG 
+TL.BackgroundColor3 = Color3.fromRGB(22, 22, 22)
+TL.Active = false
+TL.Font = Enum.Font.MontserratMedium
+TL.TextColor3 = Color3.fromRGB(200, 200, 200)
+TL.TextSize = 24
+TL.AnchorPoint = Vector2.new(0.5, 0.5)
+TL.Position = UDim2.new(0.5, 0, 0.5, 0)
+TL.Size = UDim2.new(1, 0, 1, 0)
+
+LocalPlayer.DevCameraOcclusionMode = Enum.DevCameraOcclusionMode.Invisicam
+LocalPlayer.CameraMaxZoomDistance = 6
+LocalPlayer.CameraMinZoomDistance = 6
+
+TL.Text = "Loading..."
+
+
+local Click = function(Part)
+	local Input = game:GetService("VirtualInputManager")
+	local Pos = workspace.Camera:WorldToScreenPoint(Part.Position)
+
+	if (Part:GetAttribute("OriginalPos") == nil) then 
+		Part:SetAttribute("OriginalPos", Part.Position)
+	end
+
+	repeat 
+		Part.CFrame = (workspace.Camera.CFrame + workspace.Camera.CFrame.LookVector * 1) * CFrame.Angles(90, 0, 0)
+		Input:SendMouseButtonEvent(workspace.Camera.ViewportSize.X/2, workspace.Camera.ViewportSize.Y/2, 0, true, game, 1)
+		task.wait()
+		Input:SendMouseButtonEvent(workspace.Camera.ViewportSize.X/2, workspace.Camera.ViewportSize.Y/2, 0, false, game, 1)
+	until (Part == nil) or (Part:FindFirstChild("ClickDetector") == nil)
+end
+
+
+
+local GetCash = function()
+	local Found = {}
+	
+	for i,v in pairs(Drop:GetChildren()) do 
+		if (v.Name == "MoneyDrop") then 
+			local Pos = nil 
+			
+			if (v:GetAttribute("OriginalPos") ~= nil) then 
+				Pos = v:GetAttribute("OriginalPos")
+			else 
+				Pos = v.Position
+			end
+			if (Pos - LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 15 then 
+				Found[#Found+1] = v 
+			end
+		end
+	end
+	return Found
+end
+
+local GetCashier = function()
+	for i,v in pairs(Cashiers:GetChildren()) do 
+		if v.Name == "VAULT" then
+            continue
+        end
+
+		if (i == 15) and (Vector3.new(-625, 10, -286) - v.Head.Position).Magnitude <= 20 then 
+			v:MoveTo(Vector3.new(-622.948, 24, -286.52))
+			for x,z in pairs(v:GetChildren()) do 
+				if (z:IsA("Part")) or (z:IsA("BasePart")) then 
+					z.CanCollide = false 
+				end
+			end
+		elseif (i == 16) and (Vector3.new(-625, 10, -286) - v.Head.Position).Magnitude <= 20 then
+			v:MoveTo(Vector3.new(-629.948, 24, -286.52))
+			for x,z in pairs(v:GetChildren()) do 
+				if (z:IsA("Part")) or (z:IsA("BasePart")) then 
+					z.CanCollide = false 
+				end
+			end
+		end
+		
+		if (v.Humanoid.Health > 0) then 
+			return v 
+		end
+	end
+	return nil
+end
+
+local To = function(CF)
+	LocalPlayer.Character.HumanoidRootPart.CFrame = CF 
+	LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0, 0, 0)
+end
+local function isSimilarCFrame(c1, c2, tolerance)
+    tolerance = tolerance or 1
+    return (c1.p - c2.p).Magnitude <= tolerance 
+end
+
+local IsANiggerAnnoying = false 
+
+-- -196.323273, 159.224777, -23.9974632
+-- -548.224731, 173.599777, 6.7604804
+-- -965.559753, 147.229767, -20.9017429
+---1237.1936, 138.72464, -661.401917
+
+local SecurePlaces = {
+	CFrame.new(1237.1936, 138.72464, -661.401917), 
+	CFrame.new(-965.559753, 147.229767, -20.9017429), 
+	CFrame.new(-548.224731, 173.599777, 6.7604804), 
+	CFrame.new(-196.323273, 159.224777, -23.9974632)
+}
+
+task.spawn(function()
+	while task.wait(0.005) do 
+		if (IsANiggerAnnoying == false) then
+			repeat
+				wait()
+			until (LocalPlayer ~= nil) and (LocalPlayer.Character ~= nil) and (LocalPlayer:FindFirstChild("Backpack") ~= nil) and (LocalPlayer.Backpack:FindFirstChild("Combat") or LocalPlayer.Character:FindFirstChild("Combat") ~= nil)
+	
+			local Cashier = nil
+			repeat 
+				Cashier = GetCashier()
+
+				if (LocalPlayer.Backpack:FindFirstChild("Combat") ~= nil)then 
+					LocalPlayer.Backpack:FindFirstChild("Combat").Parent = LocalPlayer.Character 
+				end
+
+				task.wait()
+			until (Cashier ~= nil)
+			
+			local ewCFrame = CFrame.new(-627.0047, 22.4963474, -284.834656)
+			local ew2CFrame = CFrame.new(-629.167419, 23.0211411, -285.314056)
+			repeat 
+				
+				local CashierCFRAME = (Cashier.Head.CFrame+Vector3.new(0, -2.5, 0)) * CFrame.Angles(math.rad(90), 0, 0)
+				if isSimilarCFrame(CashierCFRAME, ewCFrame, 3) or isSimilarCFrame(CashierCFRAME, ew2CFrame, 3) then
+					return
+				end
+				To( CashierCFRAME ) 
+				task.wait()
+				if (LocalPlayer:FindFirstChild("Backpack") ~= nil) then
+					LocalPlayer.Character.Combat:Activate()
+				end
+			until (Cashier.Humanoid.Health <= 0)
+			Broken += 1
+
+			To(Cashier.Head.CFrame + Cashier.Head.CFrame.LookVector * Vector3.new(0, 2, 0))
+
+			for i,v in pairs(LocalPlayer.Character:GetChildren()) do 
+				if (v:IsA("Tool")) then 
+					v.Parent = LocalPlayer.Backpack 
+				end
+			end
+			
+			local CashInFloor = GetCash()
+			
+			for i,v in pairs(CashInFloor) do 
+				Click(v)
+			end
+		end
+	end
+end)
+
+local TotalPlayers = #game:GetService("Players"):GetPlayers()
+local StartCash = LocalPlayer.DataFolder.Currency.Value
+task.spawn(function()
+	while task.wait(1) do 
+		--print(TL.Text)
+		TL.Text = "Auto Farm V2\n@".. LocalPlayer.Name .. 
+		"\nTotal Players: " .. tostring(TotalPlayers) .. 
+		"\n$"..tostring(LocalPlayer.DataFolder.Currency.Value):reverse():gsub("...","%0,",math.floor((#tostring(LocalPlayer.DataFolder.Currency.Value)-1)/3)):reverse()..
+		"\nBroken: "..tostring(Broken)..
+		"\n"..string.format("%02i:%02i:%02i", (os.time()-StartTick)/60^2, (os.time()-StartTick)/60%60, (os.time()-StartTick)%60)..
+		"\nProfit: $"..tostring(LocalPlayer.DataFolder.Currency.Value-StartCash):reverse():gsub("...","%0,",math.floor((#tostring(LocalPlayer.DataFolder.Currency.Value-StartCash)-1)/3)):reverse().."\n"..tostring(GetCashier())
+	end
+end)
+
+local Loop
+local function StartLoop()
+    local forbidden = {'[RPG]','[SMG]','[TacticalShotgun]','[AK47]','[AUG]','[Glock]', '[Shotgun]','[Flamethrower]','[Silencer]','[AR]','[Revolver]','[SilencerAR]','[LMG]','[P90]','[DrumGun]','[Double-Barrel SG]','[Hamburger]','[Chicken]','[Pizza]','[Cranberry]','[Donut]','[Taco]','[Starblox Latte]','[BrownBag]','[Weights]','[HeavyWeights]'}
+    local Found = false
+	for _, v in pairs(game.Workspace.Players:GetChildren()) do
+		if v:FindFirstChild("UpperTorso") and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+			if (v.UpperTorso.Position - LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 15 then
+				local tool = v:FindFirstChildWhichIsA("Tool")
+				if v:FindFirstChild("BodyEffects") and v.BodyEffects:FindFirstChild("Attacking") then
+					if tool and v.BodyEffects.Attacking.Value == true and 
+					   not table.find(forbidden, tool.Name) and 
+					   v.Name ~= LocalPlayer.Name then
+						Found = true
+						IsANiggerAnnoying = true
+						ReplicatedStorage.MainEvent:FireServer("Block", LocalPlayer.Name)
+					end
+				end
+			end
+		end
+	end	
+    if Found == false then
+        if LocalPlayer.Character.BodyEffects:FindFirstChild('Block') then LocalPlayer.Character.BodyEffects.Block:Destroy() end
+    end
+end
+
+LocalPlayer.Idled:Connect(function()
+	for i = 1, 10 do 
+		game:GetService("VirtualUser"):Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame) 
+		task.wait(0.2) 
+		game:GetService("VirtualUser"):Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+		task.wait(0.2)
+	end
+end)
+
+--pcall(function() UserSettings().GameSettings.MasterVolume = 0 end)
+pcall(function() settings().Rendering.QualityLevel = "Level01" end)
+
+LocalPlayer.CharacterAdded:Connect(function(character)
+    local Humanoid = character:WaitForChild("Humanoid")
+    
+    Humanoid.Seated:Connect(function()
+        Humanoid.Sit = false
+        Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
+        task.wait(0.05)
+        Humanoid.Jump = true
+    end)
+end)
+
+if (getgenv().AutofarmSettings["Interface"] == true) then 
+	game:GetService("RunService"):Set3dRenderingEnabled(false) 
+else 
+	SG.Enabled = false
+end
+
+if (getgenv().AutofarmSettings["Autoblock"] == true) then
+	Loop = RunService.Heartbeat:Connect(StartLoop)
+else
+	if Loop ~= nil then
+		Loop:Disconnect()
+	end
+end
+
+task.wait(10)
+
+LocalPlayer:Kick("Stop exploiting.")
