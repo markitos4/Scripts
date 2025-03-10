@@ -2,9 +2,8 @@
 local last_call = 0
 local function CallDecompile(konstantType, scriptPath)
 	local success, bytecode = pcall(getscriptbytecode, scriptPath)
-	print(bytecode)
+
 	if (not success) then
-		print("Not")
 		return nil, "Couldn't get the scriptbytecode of the Script"
 	end
   
