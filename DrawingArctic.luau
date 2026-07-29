@@ -1,7 +1,4 @@
 coroutine.wrap(function() 
-	while not gethui or not getgenv or not newcclosure do 
-		task.wait(0.1)
-	end
 	
 	local drawingUI = Instance.new("ScreenGui", gethui())
 	drawingUI.Name = "Arctic | Drawing"
@@ -560,24 +557,6 @@ coroutine.wrap(function()
 	end)
 
 	getgenv().syn_drawing = getgenv().Drawing
-	
-	pcall(function() 
-		local Path = gethui():FindFirstChild("Modules"):FindFirstChild("Common")
-		while Path == nil do
-			Path = gethui():FindFirstChild("Modules"):FindFirstChild("Common")
-			task.wait()
-		end
-
-		local Constants = Path:FindFirstChild("EventConnection"):Clone()
-		while Constants == nil do
-			Constants = Path:FindFirstChild("EventConnection"):Clone()
-			task.wait()
-		end
-
-		Constants.Name = "Constants" 
-		Constants.Parent = Path
-		unlockmodule(Constants) 
-	end)
 
 	getgenv().saveinstance = newcclosure(function(Options)
 		local options = Options or {}
