@@ -565,19 +565,6 @@ coroutine.wrap(function()
 
 	getgenv().syn_saveinstance = getgenv().saveinstance
 
-	getgenv().isnetworkowner = newcclosure(function(BasePart: BasePart)
-		assert(typeof(BasePart) == "Instance", `arg #1 must be an instance`)
-		assert(BasePart:IsA('BasePart') , `arg #1 must be a basepart`)
-
-		local ReceiveAge = BasePart.ReceiveAge
-		local Anchored = BasePart.Anchored
-		local Velocity = BasePart.Velocity
-		local AngularVelocity = BasePart.AssemblyAngularVelocity
-		local Success, ID = pcall(gethiddenproperty, BasePart, "NetworkOwnerV3")
-
-		return (ReceiveAge == 0 and not Anchored and Velocity.Magnitude > 0 and AngularVelocity.Magnitude > 0) or (Success and ID > 3)
-	end)
-
 	getgenv().setsimulationradius = newcclosure(function(newRadius)
 		assert(newRadius, `arg #1 is missing`)
 		assert(type(newRadius) == "number", `arg #1 must be type number`)
