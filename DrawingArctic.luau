@@ -558,31 +558,6 @@ coroutine.wrap(function()
 
 	getgenv().syn_drawing = getgenv().Drawing
 
-	getgenv().saveinstance = newcclosure(function(Options)
-		local options = Options or {}
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/luau/SynSaveInstance/main/saveinstance.luau", true), "saveinstance")()(options)
-	end)
-
-	getgenv().syn_saveinstance = getgenv().saveinstance
-
-	getgenv().setsimulationradius = newcclosure(function(newRadius)
-		assert(newRadius, `arg #1 is missing`)
-		assert(type(newRadius) == "number", `arg #1 must be type number`)
-
-		local LocalPlayer = game:GetService("Players").LocalPlayer
-		if LocalPlayer then
-			LocalPlayer.SimulationRadius = newRadius
-			LocalPlayer.MaximumSimulationRadius = newRadius
-		end
-	end)
-
-	getgenv().getsimulationradius = newcclosure(function()
-		local LocalPlayer = game:GetService("Players").LocalPlayer
-		if LocalPlayer then
-			return LocalPlayer.SimulationRadius
-		end
-	end)
-
 	task.spawn(function() 
 		game:GetService("StarterGui"):SetCore("SendNotification", {
 			Title = " [ ARCTIC ] ",
