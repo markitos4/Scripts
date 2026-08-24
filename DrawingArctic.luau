@@ -1,5 +1,4 @@
 coroutine.wrap(function() 
-	
 	local drawingUI = Instance.new("ScreenGui", gethui())
 	drawingUI.Name = "Arctic | Drawing"
 	drawingUI.IgnoreGuiInset = true
@@ -48,7 +47,7 @@ coroutine.wrap(function()
 		["Monospace"] = 3
 	}
 
-	function DrawingLib.new(drawingType)
+	DrawingLib.new = newcclosure(function(drawingType)
 		drawingIndex += 1
 		if drawingType == "Line" then
 			local lineObj = ({
@@ -534,7 +533,7 @@ coroutine.wrap(function()
 				end
 			})
 		end
-	end
+	end, "Drawing.new")
 
 	getgenv().Drawing = DrawingLib
 
@@ -543,26 +542,63 @@ coroutine.wrap(function()
 			return obj.__type == "Drawing Object"
 		end)
 		return s and r
-	end)
+	end, "isrenderobj")
+
 	getgenv().cleardrawcache = newcclosure(function()
 		drawingUI:ClearAllChildren()
-	end)
+	end, "cleardrawcache")
+
 	getgenv().getrenderproperty = newcclosure(function(obj, prop)
 		assert(getgenv().isrenderobj(obj), "Object must be a Drawing", 3)
 		return obj[prop]
-	end)
+	end, "getrenderproperty")
+
 	getgenv().setrenderproperty = newcclosure(function(obj, prop, val)
 		assert(getgenv().isrenderobj(obj), "Object must be a Drawing", 3)
 		obj[prop] = val
-	end)
+	end, "setrenderproperty")
 
 	getgenv().syn_drawing = getgenv().Drawing
 
-	getgenv().saveinstance = newcclosure(function(Options)
-		Options = Options or {}
-		Options.SafeMode = false
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/luau/SynSaveInstance/main/saveinstance.luau", true), "saveinstance")()(Options)
-	end)
+    getgenv().saveinstance = newcclosure(function(objectOrOptions, optionsOrNil)
+        local options = {}
+        local obj = nil
 
-	getgenv().syn_saveinstance = getgenv().saveinstance
+        if typeof(objectOrOptions) == "Instance" then
+            obj = objectOrOptions
+            if type(optionsOrNil) == "table" then
+                options = optionsOrNil
+            end
+        elseif type(objectOrOptions) == "table" then
+            options = objectOrOptions
+        end
+
+        if options.SafeMode == nil then
+            options.SafeMode = false
+        end
+        if options.KillAllScripts == nil then
+            options.KillAllScripts = false
+        end
+        if options.BoostFPS == nil then
+            options.BoostFPS = false
+        end
+        if options.ShutdownWhenDone == nil then
+            options.ShutdownWhenDone = false
+        end
+        if options.ShowStatus == nil then
+            options.ShowStatus = true
+        end
+
+        if obj then
+            options.Object = obj
+        end
+
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/luau/UniversalSynSaveInstance/main/saveinstance.luau", true), "saveinstance")(options)
+    end, "saveinstance")
+
+    getgenv().save_instance = getgenv().saveinstance
+    getgenv().savegame = getgenv().saveinstance
+    getgenv().save_game = getgenv().saveinstance
+    getgenv().synsaveinstance = getgenv().saveinstance
+    getgenv().syn_saveinstance = getgenv().saveinstance
 end)()
