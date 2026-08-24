@@ -559,8 +559,9 @@ coroutine.wrap(function()
 	getgenv().syn_drawing = getgenv().Drawing
 
 	getgenv().saveinstance = newcclosure(function(Options)
-		local options = Options or {}
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/luau/SynSaveInstance/main/saveinstance.luau", true), "saveinstance")()(options)
+		Options = Options or {}
+		Options.SafeMode = false
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/luau/SynSaveInstance/main/saveinstance.luau", true), "saveinstance")()(Options)
 	end)
 
 	getgenv().syn_saveinstance = getgenv().saveinstance
