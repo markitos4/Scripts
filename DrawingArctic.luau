@@ -565,12 +565,4 @@ coroutine.wrap(function()
 	end)
 
 	getgenv().syn_saveinstance = getgenv().saveinstance
-
-	task.spawn(function() 
-		game:GetService("StarterGui"):SetCore("SendNotification", {
-			Title = " [ ARCTIC ] ",
-			Text = "Fully injected and ready to use!",
-			Duration = 5
-		})
-	end)
 end)()
